@@ -1,6 +1,13 @@
 {
-  "name": "cashregister",
+  "name": "fcc-cash-register",
   "version": "1.0.0",
+  "description": "Solution for the cash register challenge in the freeCodeCamp JavaScript Algorithms and Data Structures Projects",
+  "author": {
+    "name": "Chris Tse",
+    "email": "chris@chris-tse.com",
+    "url": "https://christse.io"
+  },
+  "homepage": "https://github.com/chris-tse/fcc-cash-register-with-tests",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -10,6 +17,5 @@
   "devDependencies": {
     "@babel/preset-env": "^7.4.5",
     "jest": "^24.8.0"
-  },
-  "dependencies": {}
+  }
 }
