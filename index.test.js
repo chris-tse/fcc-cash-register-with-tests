@@ -15,9 +15,16 @@ describe('cash register', () => {
         expect(typeof checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]])).toBe('object');
     });
 
-    it('returns open status if able to return change', () => {
+    it('returns open status if able to return change 1', () => {
         let evaluated = checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
         let expected = { status: "OPEN", change: [["QUARTER", 0.5]] };
+
+        expect(evaluated).toEqual(expected);
+    });
+
+    it('returns open status if able to return change 2', () => {
+        let evaluated = checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
+        let expected =  {status: "OPEN", change: [["TWENTY", 60], ["TEN", 20], ["FIVE", 15], ["ONE", 1], ["QUARTER", 0.5], ["DIME", 0.2], ["PENNY", 0.04]]};
 
         expect(evaluated).toEqual(expected);
     });
