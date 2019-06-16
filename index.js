@@ -20,6 +20,7 @@ export function checkCashRegister(price, cash, cid) {
     let changeDue = cash - price;
     const change = [];
     
+    // Check for early exit conditions
     if (changeDue === 0) {
         return { status: "OPEN", change };
     }
@@ -35,21 +36,37 @@ export function checkCashRegister(price, cash, cid) {
     }
 
     let changeFound = true;
-    let reverseCid = cid.reverse();
+    let reverseCid = cid.reverse(); // reverse cash in drawer to start from largest denomination first
 
-    while (changeDue > 0) {
+    while (changeDue > 0  && changeFound) {
         changeFound = false;
 
         reverseCid.forEach((denom, index, arr) => {
-            let denomValue = values[denom[0]]
+            let denomValue = values[denom[0]];
+            let changeGiven = [denom[0], 0];
 
-            if (changeDue >= denomValue && denom[1] > 0) {
+            while (changeDue >= denomValue && denom[1] > 0) {
                 arr[index][1] -= denomValue;
+                changeDue -= denomValue;
+                changeGiven[1] += denomValue;
+                changeFound = true;
             }
+            if (changeGiven[1] > 0)
+                change.push(changeGiven);
         });
+        
     }
 
-    return {};
+    let status;
+
+    if (changeDue === 0)
+        status = 'OPEN';
+    else {
+        status = 'INSUFFICIENT_FUNDS';
+        change.length = 0;
+    }
+
+    return {status, change};
 }
 
 /**
@@ -59,3 +76,5 @@ export function checkCashRegister(price, cash, cid) {
 export function sumMoney(money) {
     return money.reduce((acc, next) => acc + next[1], 0);
 }
+
+checkCashRegister(3.26, 100, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
