@@ -11,11 +11,14 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js",
+    "start": "babel index.js > out.js && node out.js",
     "test": "jest"
   },
   "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "jest": "^24.8.0"
-  }
+  },
+  "dependencies": {}
 }
